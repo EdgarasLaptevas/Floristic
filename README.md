@@ -9,7 +9,7 @@ Floristic – tai moderni ir patogi internetinė platforma, skirta visiems, kuri
 
 📚 Tinklaraštis ir straipsniai – patarimai apie gėlių priežiūrą, puokščių komponavimą, sezoninius pasirinkimus ir floristų įžvalgos.
 
-⭐ Atsiliepimai ir vertinimai – naudotojai gali vertinti produktus, rašyti komentarus ir pasidalinti patirtimi.
+⭐ Atsiliepimai ir vertinimai – naudotojai gali vertinti produktus, rašyti komentarus, palikti atsiliepimus apie mūsų svetainę ir pasidalinti patirtimi.
 
 👤 Registracija ir paskyros – vartotojai gali užsiregistruoti, sekti savo užsakymus, išsaugoti pamėgtus produktus ir naudotis personalizuotomis funkcijomis.
 
