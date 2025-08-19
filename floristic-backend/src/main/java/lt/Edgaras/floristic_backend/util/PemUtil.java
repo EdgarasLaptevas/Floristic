@@ -1,6 +1,5 @@
-package lt.Edgaras.floristic_backend.security;
+package lt.Edgaras.floristic_backend.util;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.KeyFactory;
@@ -12,20 +11,22 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 @Component
-public class JwtKeyProvider {
+public final class PemUtil {
 
     private static final String BEGIN_PRIVATE = "-----BEGIN PRIVATE KEY-----";
     private static final String END_PRIVATE = "-----END PRIVATE KEY-----";
     private static final String BEGIN_PUBLIC = "-----BEGIN PUBLIC KEY-----";
     private static final String END_PUBLIC = "-----END PUBLIC KEY-----";
 
-    @Value("${jwt.private-key}")
-    private String privateKeyPem;
+    private PemUtil() {
+    }
+//    @Value("${jwt.private-key}")
+//    private String privateKeyPem;
+//
+//    @Value("${jwt.public-key}")
+//    private String publicKeyPem;
 
-    @Value("${jwt.public-key}")
-    private String publicKeyPem;
-
-    public RSAPrivateKey getPrivateKey() {
+    public static RSAPrivateKey toPrivateKey(String privateKeyPem) {
         try {
             String cleaned = privateKeyPem
                     .replace(BEGIN_PRIVATE, "")
@@ -34,12 +35,12 @@ public class JwtKeyProvider {
             byte[] keyBytes = Base64.getDecoder().decode(cleaned);
             PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
             return (RSAPrivateKey) KeyFactory.getInstance("RSA").generatePrivate(keySpec);
-        } catch (Exception e) {
-            throw new IllegalStateException("Failed to load private key from secret", e);
+        } catch (Exception ex) {
+            throw new IllegalStateException("Failed to load private key from secret", ex);
         }
     }
 
-    public RSAPublicKey getPublicKey() {
+    public static RSAPublicKey toPublicKey(String publicKeyPem) {
         try {
             String cleaned = publicKeyPem
                     .replace(BEGIN_PUBLIC, "")
@@ -48,8 +49,8 @@ public class JwtKeyProvider {
             byte[] keyBytes = Base64.getDecoder().decode(cleaned);
             X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
             return (RSAPublicKey) KeyFactory.getInstance("RSA").generatePublic(keySpec);
-        } catch (Exception e) {
-            throw new IllegalStateException("Failed to load public key from secret", e);
+        } catch (Exception ex) {
+            throw new IllegalStateException("Failed to load public key from secret", ex);
         }
     }
 }

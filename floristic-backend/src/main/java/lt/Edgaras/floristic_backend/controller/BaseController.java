@@ -24,10 +24,6 @@ public abstract class BaseController {
     }
 
     //status 4**
-    protected <T> ResponseEntity<ApiResponse<T>> badRequest(T data, String message) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(data, message, false));
-    }
-
     protected <T> ResponseEntity<ApiResponse<T>> notAuthenticated(String message) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse<>(null, message, false));
     }
@@ -49,9 +45,8 @@ public abstract class BaseController {
     }
 
     //status 5**
-    protected <T> ResponseEntity<ApiResponse<T>> badRequest(String message) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(null, message, false));
+    protected <T> ResponseEntity<ApiResponse<T>> badRequest(T data, String message) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(data, message, false));
     }
-
 
 }

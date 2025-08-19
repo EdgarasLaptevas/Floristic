@@ -1,9 +1,11 @@
 package lt.Edgaras.floristic_backend.exception;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.ConstraintViolationException;
 import lt.Edgaras.floristic_backend.controller.BaseController;
 import lt.Edgaras.floristic_backend.dto.ApiResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -32,6 +34,16 @@ public class GlobalExceptionHandler extends BaseController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleException(Exception ex) {
+        return badRequest(null, ex.getMessage());
+    }
+
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<ApiResponse<Void>> handleJwtException(JwtException ex) {
+        return badRequest(null, ex.getMessage());
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResponseEntity<ApiResponse<Void>> handleJsonProcessingException(JsonProcessingException ex) {
         return badRequest(null, ex.getMessage());
     }
 
